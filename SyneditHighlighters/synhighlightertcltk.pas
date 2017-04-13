@@ -72,6 +72,7 @@ type
     tkSpace, tkString, tkSymbol, tkUnknown);
 
   TRangeState = (rsUnknown, rsAnsi, rsPasStyle, rsCStyle);
+  PRangeState = ^TRangeState;
 
   TProcTableProc = procedure of object;
 
@@ -633,7 +634,7 @@ end;
 
 function TSynTclTkSyn.GetRange: Pointer;
 begin
-  Result := Pointer(fRange);
+  Result := Pointer(PRangeState(@fRange));
 end;
 
 function TSynTclTkSyn.GetToken: string;
@@ -683,7 +684,7 @@ end;
 
 procedure TSynTclTkSyn.SetRange(Value: Pointer);
 begin
-  fRange := TRangeState(Value);
+  fRange := PRangeState(Value)^;
 end;
 
 procedure TSynTclTkSyn.SetKeyWords(const Value: TStrings);

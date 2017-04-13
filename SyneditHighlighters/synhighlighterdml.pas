@@ -63,6 +63,7 @@ type
     tkUnknown, tkVariable);
 
   TRangeState = (rsANil, rsAdd, rsFind, rsUnKnown);
+  PRangeState = ^TRangeState;
 
   TProcTableProc = procedure of object;
   PIdentFuncTableFunc = ^TIdentFuncTableFunc;
@@ -1827,12 +1828,12 @@ end;
 
 function TSynDmlSyn.GetRange: Pointer;
 begin
-  Result := Pointer(fRange);
+  Result := Pointer(PRangeState(@fRange));
 end;
 
 procedure TSynDmlSyn.SetRange(Value: Pointer);
 begin
-  fRange := TRangeState(Value);
+  fRange := PRangeState(Value)^;
 end;
 
 procedure TSynDmlSyn.ResetRange;

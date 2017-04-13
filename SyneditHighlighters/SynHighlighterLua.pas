@@ -65,6 +65,7 @@ type
     tkUnknown);
 
   TRangeState = (rsUnKnown, rsComment, rsString, rsQuoteString, rsMultilineString);
+  PRangeState = ^TRangeState;
 
   TProcTableProc = procedure of object;
 
@@ -1432,12 +1433,12 @@ end;
 
 procedure TSynLuaSyn.SetRange(Value: Pointer);
 begin
-  fRange := TRangeState(Value);
+  fRange := PRangeState(Value)^;
 end;
 
 function TSynLuaSyn.GetRange: Pointer;
 begin
-  Result := Pointer(fRange);
+  Result := Pointer(PRangeState(@fRange));
 end;
 
 initialization

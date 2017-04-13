@@ -81,6 +81,8 @@ type
     rsAsmBlock, rsDirective, rsDirectiveComment, rsString34, rsString39,
     rsMultiLineString);
 
+  PRangeState = ^TRangeState;
+
   TProcTableProc = procedure of object;
 
   PIdentFuncTableFunc = ^TIdentFuncTableFunc;
@@ -1445,7 +1447,7 @@ end;
 
 function TSynCSSyn.GetRange: Pointer;
 begin
-  Result := Pointer(fRange);
+  Result := Pointer(PRangeState(@fRange));
 end;
 
 function TSynCSSyn.GetToken: String;
@@ -1512,7 +1514,7 @@ end;
 
 procedure TSynCSSyn.SetRange(Value: Pointer);
 begin
-  fRange := TRangeState(Value);
+  fRange := PRangeState(Value)^;
 end;
 
 function TSynCSSyn.GetIdentChars: TSynIdentChars;

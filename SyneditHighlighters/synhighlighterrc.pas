@@ -61,6 +61,7 @@ type
                  tkNumber, tkSpace, tkString, tkSymbol, tkUnknown);
 
  TRangeState = (rsUnknown, rsDirective, rsComment);
+ PRangeState = ^TRangeState;
 
  TProcTableProc = procedure of object;
 
@@ -1086,7 +1087,7 @@ end;
 
 function TSynRCSyn.GetRange: pointer;
 begin
-  result:= pointer(fRange);
+  Result := Pointer(PRangeState(@fRange));
 end;
 
 function TSynRCSyn.GetToken: string;
@@ -1136,7 +1137,7 @@ end;
 
 procedure TSynRCSyn.SetRange(value: pointer);
 begin
-  fRange:= TRangeState(value);
+  fRange := PRangeState(Value)^;
 end;
 
 procedure TSynRCSyn.EnumUserSettings(Settings: TStrings);

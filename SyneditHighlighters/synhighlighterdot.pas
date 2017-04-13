@@ -73,6 +73,7 @@ type
     tkSymbol);
 
   TRangeState = (rsUnKnown, rsCStyleComment, rsString);
+  PRangeState = ^TRangeState;
 
   TProcTableProc = procedure of object;
 
@@ -1366,12 +1367,12 @@ end;
 
 procedure TSynDOTSyn.SetRange(Value: Pointer);
 begin
-  fRange := TRangeState(Value);
+  fRange := PRangeState(Value)^;
 end;
 
 function TSynDOTSyn.GetRange: Pointer;
 begin
-  Result := Pointer(fRange);
+  Result := Pointer(PRangeState(@fRange));
 end;
 
 initialization

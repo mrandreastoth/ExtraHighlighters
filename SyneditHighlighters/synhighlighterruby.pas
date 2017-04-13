@@ -78,6 +78,7 @@ type
     end;
 {$ELSE}
   TRangeState = (rsUnknown);
+  PRangeState = ^TRangeState;
 {$ENDIF}
 
   TProcTableProc = procedure of object;
@@ -672,7 +673,7 @@ begin
   end;
   Result := RangePointer.Ptr;
 {$ELSE}
-  Result := Pointer(fRange);
+  Result := Pointer(PRangeState(@fRange));
 {$ENDIF}
 end;
 
@@ -742,7 +743,7 @@ begin
     fHeredocChecksum := RangePointer.Checksum;
   end;
 {$ELSE}
-  fRange := TRangeState(Value);
+  fRange := PRangeState(Value)^;
 {$ENDIF}
 end;
 

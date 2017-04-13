@@ -73,6 +73,8 @@ type
                  rsPseudoText,
                  rsQuoteStringMayBe, rsApostStringMayBe);
 
+  PRangeState = ^TRangeState;
+
   TProcTableProc = procedure of object;
 
   PIdentFuncTableFunc = ^TIdentFuncTableFunc;
@@ -2327,12 +2329,12 @@ end;
 
 procedure TSynCobolSyn.SetRange(Value: Pointer);
 begin
-  fRange := TRangeState(Value);
+  fRange := PRangeState(Value)^;
 end;
 
 function TSynCobolSyn.GetRange: Pointer;
 begin
-  Result := Pointer(fRange);
+  Result := Pointer(PRangeState(@fRange));
 end;
 
 initialization

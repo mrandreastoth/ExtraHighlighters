@@ -66,6 +66,8 @@ Type
 
   TRangeState = (rsUnKnown, rsComment, rsString, rsChar);
 
+  PRangeState = ^TRangeState;
+
   TProcTableProc = procedure of object;
 
   PIdentFuncTableFunc = ^TIdentFuncTableFunc;
@@ -913,12 +915,12 @@ end;
 
 procedure TSynIdlSyn.SetRange(Value: Pointer);
 begin
-  fRange := TRangeState(Value);
+  fRange := PRangeState(Value)^;
 end;
 
 function TSynIdlSyn.GetRange: Pointer;
 begin
-  Result := Pointer(fRange);
+  Result := Pointer(PRangeState(@fRange));
 end;
 
 initialization

@@ -70,6 +70,7 @@ type
     tkMacro, tkUserFunction, tkEmbedSQL, tkEmbedText, tkUnknown);
 
   TRangeState = (rsUnKnown, rsSQL, rsHTML, rsCommand);
+  PRangeState = ^TRangeState;
 
   TProcTableProc = procedure of object;
 
@@ -1510,7 +1511,7 @@ end;
 
 function TSynCacheSyn.GetRange: Pointer;
 begin
-  Result := Pointer(fRange);
+  Result := Pointer(PRangeState(@fRange));
 end;
 
 function TSynCacheSyn.GetToken: String;
@@ -1567,7 +1568,7 @@ end;
 
 procedure TSynCacheSyn.SetRange(Value: Pointer);
 begin
-  fRange := TRangeState(Value);
+  fRange := PRangeState(Value)^;
 end;
 
 //------------------------------------------------------------------------------

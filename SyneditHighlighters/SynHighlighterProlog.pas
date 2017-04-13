@@ -56,6 +56,7 @@ Type
     tkNull, tkNumber, tkSpace, tkString, tkSymbol, tkUnknown);
 
   TRangeState = (rsAnsiC, rsUnKnown);
+  PRangeState = ^TRangeState;
 
   TProcTableProc = procedure of object;
 
@@ -1838,7 +1839,7 @@ end;
 
 function TSynPrologSyn.GetRange: Pointer;
 begin
-  Result := Pointer(fRange);
+  Result := Pointer(PRangeState(@fRange));
 end;
 
 procedure TSynPrologSyn.ReSetRange;
@@ -1853,7 +1854,7 @@ end;
 
 procedure TSynPrologSyn.SetRange(Value: Pointer);
 begin
-  fRange := TRangeState(Value);
+  fRange := PRangeState(Value)^;
 end;
 
 procedure TSynPrologSyn.AndSymbolProc;

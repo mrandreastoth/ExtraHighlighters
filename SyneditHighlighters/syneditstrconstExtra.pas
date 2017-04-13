@@ -1,7 +1,8 @@
 unit SynEditStrConstExtra;
 
 Interface
-uses SynEditStrConst;
+
+//uses SynEditStrConst;
 
 ResourceString
 

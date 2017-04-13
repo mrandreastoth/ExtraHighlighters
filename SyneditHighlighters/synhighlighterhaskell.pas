@@ -80,6 +80,8 @@ type
   TRangeState = (rsUnknown, rsAnsiC, rsAnsiCAsm, rsAnsiCAsmBlock, rsAsm,
     rsAsmBlock, rsDirective, rsDirectiveComment, rsString34, rsString39);
 
+  PRangeState = ^TRangeState;
+
   TProcTableProc = procedure of object;
 
   PIdentFuncTableFunc = ^TIdentFuncTableFunc;
@@ -1052,7 +1054,7 @@ end;
 
 function TSynHaskellSyn.GetRange: Pointer;
 begin
-  Result := Pointer(fRange);
+  Result := Pointer(PRangeState(@fRange));
 end;
 
 function TSynHaskellSyn.GetToken: String;
@@ -1112,7 +1114,7 @@ end;
 
 procedure TSynHaskellSyn.SetRange(Value: Pointer);
 begin
-  fRange := TRangeState(Value);
+  fRange := PRangeState(Value)^;
 end;
 
 function TSynHaskellSyn.GetIdentChars: TSynIdentChars;

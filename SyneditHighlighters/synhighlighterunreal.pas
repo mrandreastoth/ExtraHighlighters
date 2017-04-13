@@ -97,6 +97,7 @@ type
     xtkXorAssign);
 
   TRangeState = (rsANil, rsAnsiC, rsDirective, rsDirectiveComment, rsUnKnown);
+  PRangeState = ^TRangeState;
 
   TProcTableProc = procedure of Object;
 
@@ -1697,7 +1698,7 @@ end;
 
 function TSynUnrealSyn.GetRange: Pointer;
 begin
-  Result := Pointer(fRange);
+  Result := Pointer(PRangeState(@fRange));
 end;
 
 function TSynUnrealSyn.GetToken: String;
@@ -1760,7 +1761,7 @@ end;
 
 procedure TSynUnrealSyn.SetRange(Value: Pointer);
 begin
-  fRange := TRangeState(Value);
+  fRange := PRangeState(Value)^;
 end;
 
 procedure TSynUnrealSyn.EnumUserSettings(settings: TStrings);

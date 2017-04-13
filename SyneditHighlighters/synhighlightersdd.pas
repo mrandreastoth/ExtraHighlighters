@@ -73,6 +73,7 @@ type
   TIdentFuncTableFunc = function: TtkTokenKind of object;
 
   TRangeState = (rsComment, rsUnKnown);
+  PRangeState = ^TRangeState;
 
 type
   TSynSDDSyn = class(TSynCustomHighlighter)
@@ -671,14 +672,13 @@ end; { ResetRange }
 
 procedure TSynSDDSyn.SetRange(Value: Pointer);
 begin
-  inherited;
-  fRange := TRangeState(Value);
+  fRange := PRangeState(Value)^;
 end; { SetRange }
 
 
 function TSynSDDSyn.GetRange: Pointer;
 begin
-  Result := Pointer(fRange);
+  Result := Pointer(PRangeState(@fRange));
 end; { GetRange }
 
 

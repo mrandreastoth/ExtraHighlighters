@@ -122,6 +122,8 @@ type
   TRangeState = (rsRpl, rsComRpl, rssasm1, rssasm2, rssasm3, rsAsm, rsComAsm2,
     rsComAsm1);
 
+  PRangeState = ^TRangeState;
+
   TSynHP48Syn = class(TSynCustomHighLighter)
   private
     fTockenKind: TtkTokenKind;
@@ -802,12 +804,12 @@ end;
 
 function TSynHP48Syn.GetRange: Pointer;
 begin
-  Result := Pointer(fRange);
+  Result := Pointer(PRangeState(@fRange));
 end;
 
 procedure TSynHP48Syn.SetRange(Value: Pointer);
 begin
-  fRange := TRangeState(Value);
+  fRange := PRangeState(Value)^;
 end;
 
 procedure TSynHP48Syn.ResetRange;

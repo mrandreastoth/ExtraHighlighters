@@ -107,6 +107,7 @@ type
     tkX3DHeader);
 
   TRangeState = (rsNormalText, rsComment, rsX3DHeader, rsX3DDocType);
+  PRangeState = ^TRangeState;
 
   TProcTableProc = procedure of object;
 
@@ -4873,7 +4874,7 @@ end;
 
 function TSynVrml97Syn.GetRange :Pointer;
 begin
-  Result := Pointer(fRange);
+  Result := Pointer(PRangeState(@fRange));
 end;
 
 function TSynVrml97Syn.GetToken :string;
@@ -4944,7 +4945,7 @@ end;
 
 procedure TSynVrml97Syn.SetRange(Value :Pointer);
 begin
-  fRange := TRangeState(Value);
+  fRange := PRangeState(Value)^;
 end;
 
 function TSynVrml97Syn.GetIdentChars :TSynIdentChars;

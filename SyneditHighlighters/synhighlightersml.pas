@@ -70,7 +70,9 @@ Type
     tkOperator, tkSpace, tkString, tkSymbol, tkSyntaxError, tkUnknown);
 
   TProcTableProc = procedure of object;
+
   TRangeState = (rsUnknown, rsComment, rsMultilineString);
+  PRangeState = ^TRangeState;
 
   PIdentFuncTableFunc = ^TIdentFuncTableFunc;
   TIdentFuncTableFunc = function: TtkTokenKind of object;
@@ -941,12 +943,12 @@ end;
 
 procedure TSynSMLSyn.SetRange(Value: Pointer);
 begin
-  fRange := TRangeState(Value);
+  fRange := PRangeState(Value)^;
 end;
 
 function TSynSMLSyn.GetRange: Pointer;
 begin
-  Result := Pointer(fRange);
+  Result := Pointer(PRangeState(@fRange));
 end;
 
 initialization

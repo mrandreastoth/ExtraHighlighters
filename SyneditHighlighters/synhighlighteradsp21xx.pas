@@ -63,6 +63,8 @@ type
   TRangeState = (rsUnKnown, rsPascalComment, rsCComment, rsHexNumber,
     rsBinaryNumber, rsInclude);
 
+  PRangeState = ^TRangeState;
+
   TProcTableProc = procedure of object;
 
   PIdentFuncTableFunc = ^TIdentFuncTableFunc;
@@ -242,7 +244,7 @@ type
 implementation
 
 uses
-  SynEditStrConst,SynEditStrConstExtra;
+  SynEditStrConst;//SynEditStrConstExtra;
 
 var
   Identifiers: array[#0..#255] of ByteBool;
@@ -1058,7 +1060,9 @@ end;
 
 procedure TSynADSP21xxSyn.SetLine(const NewValue: string; LineNumber:Integer);
 begin
-  fLine := PChar(NewValue);
+  inherited SetLine(NewValue, LineNumber);
+
+  FLine := PChar(NewValue);
   Run := 0;
   Next;
 end;
@@ -1389,12 +1393,12 @@ end;
 
 function TSynADSP21xxSyn.GetRange: Pointer;
 begin
-  Result := Pointer(fRange);
+  Result := Pointer(PRangeState(@fRange));
 end;
 
 procedure TSynADSP21xxSyn.SetRange(Value: Pointer);
 begin
-  fRange := TRangeState(Value);
+  fRange := PRangeState(Value)^;
 end;
 
 procedure TSynADSP21xxSyn.ResetRange;

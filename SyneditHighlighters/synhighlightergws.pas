@@ -75,6 +75,7 @@ Type
     xtkXorAssign);
 
   TRangeState = (rsAnsiC, rsUnKnown);
+  PRangeState = ^TRangeState;
 
   TProcTableProc = procedure of Object;
 
@@ -968,7 +969,7 @@ end;
 
 function TSynGWScriptSyn.GetRange: Pointer;
 begin
-  Result := Pointer(fRange);
+  Result := Pointer(PRangeState(@fRange));
 end;
 
 function TSynGWScriptSyn.GetToken: String;
@@ -1029,7 +1030,7 @@ end;
 
 procedure TSynGWScriptSyn.SetRange(Value: Pointer);
 begin
-  fRange := TRangeState(Value);
+  fRange := PRangeState(Value)^;
 end;
 
 function TSynGWScriptSyn.GetIdentChars: TSynIdentChars;

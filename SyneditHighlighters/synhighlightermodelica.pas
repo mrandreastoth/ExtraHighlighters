@@ -53,6 +53,7 @@ type
     tkSpace, tkString, tkSymbol, tkUnknown);
 
   TRangeState = (rsUnknown, rsString39, rsString34, rsComment);
+  PRangeState = ^TRangeState;
 
   TProcTableProc = procedure of object;
 
@@ -889,7 +890,7 @@ end;
 
 function TSynModelicaSyn.GetRange: Pointer;
 begin
-  Result := Pointer(fRange);
+  Result := Pointer(PRangeState(@fRange));
 end;
 
 function TSynModelicaSyn.GetToken: string;
@@ -947,7 +948,7 @@ end;
 
 procedure TSynModelicaSyn.SetRange(Value: Pointer);
 begin
-  fRange := TRangeState(Value);
+  fRange := PRangeState(Value)^;
 end;
 
 function TSynModelicaSyn.GetIdentChars: TSynIdentChars;
